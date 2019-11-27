@@ -13,8 +13,21 @@ Replace `{{YOUR API KEY}}` with your API key from openweather.
 # Note
 I do want to recognize that for this task, angular is a bit overkill. The idea behind this project isn't to need to rely on angular but to explore angular architecture and how one might organize an application.
 
-# Improvements
+# Setup
+This project requires that you have `npm` installed on your machine. Run `npm i` to install the required packages. One complete run `npm start` to start the angular development server. By default angular will broadcast on port `4200`.
 
+# Improvements Made
+- Search against a known set of data so we can run validation before we hit the openweather api.
+- Split out the city and country input fields in order to better search for data.
+- Add a loading bar to indicate that a request is being made.
+
+# Recommended Improvements
+- Add auto complete to the city and country code fields that can respond to user input. The more they type the less options available to them.
+- Add an empty state message for before any data is loaded into the table.
+- Add a success toast when a new entry is added from the table.
+- If a cities data is requested that we have already loaded into the table, update that row and add an update toast.
+- A detail page that will diaplay all of the weather information for that city.
+- Add table filtering, useful if the table dataset becomes quite large.
 
 # Tools
 - Postman
