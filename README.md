@@ -1,5 +1,26 @@
 # WeatherApp
 
+This application allows a user to search for weather information in s specified city.
+The data in this application is pulled from `https://openweathermap.org/`
+For such a simple application, Angular 8 is not required however, this project is meant to be an exercise
+in angular architecture and organization.
+
+According to the API documentation, `We recommend to call API by city ID to get unambiguous result for your city.` which is where the `city.list.json` file comes into play. In an ideal situation, the city and country could be handed to a server side process that would be able to look up the city id in order to follow the documented process.
+
+You will also need to provide your own api key. This is in the `environment.ts` file.
+Replace `{{YOUR API KEY}}` with your API key from openweather.
+
+# Note
+I do want to recognize that for this task, angular is a bit overkill. The idea behind this project isn't to need to rely on angular but to explore angular architecture and how one might organize an application.
+
+# Improvements
+
+
+# Tools
+- Postman
+- http://www.jsontots.com/
+- vscode
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.12.
 
 ## Development server
@@ -13,14 +34,6 @@ Run `ng generate component component-name` to generate a new component. You can 
 ## Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
 ## Further help
 
