@@ -1,0 +1,77 @@
+<form [formGroup]='weatherForm' (submit)='getWeatherForCity($event, weatherForm)'>
+    <mat-error *ngIf='searchError'>Could not find city/country code match.</mat-error>
+    <mat-error *ngIf='apiError'>There was an error searching open weather for your city/country code.</mat-error>
+    <mat-list>
+        <mat-list-item>
+            <mat-form-field>
+                <label for="city">City</label>
+                <input matInput formControlName='city' type="text" name="city" id="city" />
+            </mat-form-field>
+        </mat-list-item>
+        <mat-list-item>
+            <mat-form-field>
+                <label for="country-code">Country Code</label>
+                <input matInput formControlName='country' type="text" name="country-code" id="country-code" />
+            </mat-form-field>
+        </mat-list-item>
+        <mat-list-item>
+            <button mat-button color='primary' type="submit">Get Weather</button>
+        </mat-list-item>
+    </mat-list>
+</form>
+
+<mat-divider></mat-divider>
+
+<mat-progress-bar mode="indeterminate" *ngIf='loading'></mat-progress-bar>
+
+<form class="mt-2" #unitToggleForm [formGroup]='unitForm'>
+    <mat-radio-group aria-label="Select Units" formControlName="units">
+        <mat-list>
+            <mat-list-item>
+                <mat-radio-button name="units" id="imperial" value="i">Imperial</mat-radio-button>
+            </mat-list-item>
+            <mat-list-item>
+                <mat-radio-button name='units' id='metric' value="m">Metric</mat-radio-button>
+            </mat-list-item>
+        </mat-list>
+    </mat-radio-group>
+</form>
+
+<!-- An improvement to this would be to dynamically generate the cells. 
+     This could be done with a column type that we loop through
+-->
+
+<mat-table #cityTable [dataSource]='tableDataSource' matSort>
+    <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+    <mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></mat-row>
+    <ng-container matColumnDef="city">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>City</mat-header-cell>
+        <mat-cell *matCellDef="let city"> {{city.city}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="country">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Country </mat-header-cell>
+        <mat-cell *matCellDef="let city"> {{city.country}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="temperature">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Temperature </mat-header-cell>
+        <mat-cell *matCellDef="let city"> {{ city.temperature | temperature: unitForm.value.units || 'i' | uppercase}}
+        </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="windSpeed">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Wind Speed </mat-header-cell>
+        <mat-cell *matCellDef="let city"> {{ city.windSpeed | speed: unitForm.value.units || 'i' | lowercase }}
+        </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="cloudyness">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Cloud </mat-header-cell>
+        <mat-cell *matCellDef="let city"> {{city.cloudyness | cloudy}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="sunrise">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Sunrise </mat-header-cell>
+        <mat-cell *matCellDef="let city"> {{ city.sunrise * 1000 | date: 'shortTime' }} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="sunset">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Sunset </mat-header-cell>
+        <mat-cell *matCellDef="let city"> {{ city.sunset * 1000 | date: 'shortTime' }} </mat-cell>
+    </ng-container>
+</mat-table>
